@@ -1,0 +1,40 @@
+{
+  "name": "webassembly-benchmark-tvbox",
+  "version": "1.0.0",
+  "description": "WebAssembly vs JavaScript Benchmark Suite for TV Box",
+  "main": "benchmark-wrapper.js",
+  "bin": {
+    "wasm-benchmark": "./benchmark-wrapper.js"
+  },
+  "pkg": {
+    "targets": [
+      "node18-win-x64",
+      "node18-linux-x64"
+    ],
+    "outputPath": "dist",
+    "assets": [
+      "build/**/*",
+      "js/**/*",
+      "test/**/*",
+      "database/**/*",
+      "package.json",
+      "node_modules/pg/**/*",
+      "node_modules/dotenv/**/*"
+    ],
+    "scripts": [
+      "test/*.js",
+      "database/*.js",
+      "js/**/*.js",
+      "benchmark-wrapper.js"
+    ],
+    "options": [
+      "--no-bytecode",
+      "--public-packages=*"
+    ]
+  },
+  "scripts": {
+    "build-windows": "pkg . --targets node18-win-x64 --output dist/benchmark-suite-windows.exe",
+    "build-linux": "pkg . --targets node18-linux-x64 --output dist/benchmark-suite-linux",
+    "build-all": "pkg . --targets node18-linux-x64,node18-win-x64 --out-path dist"
+  }
+} 

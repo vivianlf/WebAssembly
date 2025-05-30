@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAssembly Benchmark Tests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .progress-container {
+            margin: 20px 0;
+        }
+        progress {
+            width: 100%;
+            height: 20px;
+        }
+        .results-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .speedup {
+            font-weight: bold;
+        }
+        .positive-speedup {
+            color: green;
+        }
+        .negative-speedup {
+            color: red;
+        }
+        #download-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #download-btn:hover {
+            background-color: #45a049;
+        }
+        .chart-container {
+            margin-top: 30px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebAssembly vs JavaScript Benchmark</h1>
+    
+    <div class="test-controls">
+        <h2>Test Configuration</h2>
+        <div>
+            <label for="algorithm-select">Algorithm:</label>
+            <select id="algorithm-select">
+                <option value="matrix">Matrix Multiplication</option>
+                <option value="gradient" disabled>Gradient Descent</option>
+                <option value="integration" disabled>Numerical Integration</option>
+                <option value="fft" disabled>FFT</option>
+                <option value="json" disabled>JSON Parser</option>
+                <option value="csv" disabled>CSV Parser</option>
+            </select>
+        </div>
+        <div>
+            <label for="size-select">Size:</label>
+            <select id="size-select">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+        <div>
+            <label for="iterations-input">Iterations:</label>
+            <input type="number" id="iterations-input" min="1" max="1000" value="10">
+        </div>
+        <button id="run-btn">Run Benchmark</button>
+    </div>
+    
+    <div class="progress-container">
+        <h2>Progress</h2>
+        <progress id="test-progress" value="0" max="100"></progress>
+        <div id="status-text">Ready to run tests.</div>
+    </div>
+    
+    <div class="results-container">
+        <h2>Results</h2>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Size</th>
+                    <th>Wasm Time (ms)</th>
+                    <th>JS Time (ms)</th>
+                    <th>Speedup</th>
+                    <th>Wasm Memory (MB)</th>
+                    <th>JS Memory (MB)</th>
+                    <th>Validation</th>
+                </tr>
+            </thead>
+            <tbody id="results-body">
+                <!-- Results will be added here -->
+            </tbody>
+        </table>
+        
+        <button id="download-btn" disabled>Download Results</button>
+    </div>
+    
+    <div class="chart-container">
+        <h2>Performance Comparison</h2>
+        <canvas id="performance-chart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Memory Usage Comparison</h2>
+        <canvas id="memory-chart"></canvas>
+    </div>
+
+    <!-- Load scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="test/runner.js"></script>
+    <script src="js/math/matrix-multiply.js"></script>
+    <script src="js/init.js"></script>
+    
+    <script>
+        // Global variables
+        let testRunner;
+        let benchmarkResults = [];
+        let performanceChart;
+        
+        // DOM elements
+        const algorithmSelect = document.getElementById('algorithm-select');
+        const sizeSelect = document.getElementById('size-select');
+        const iterationsInput = document.getElementById('iterations-input');
+        const runBtn = document.getElementById('run-btn');
+        const testProgress = document.getElementById('test-progress');
+        const statusText = document.getElementById('status-text');
+        const resultsBody = document.getElementById('results-body');
+        const downloadBtn = document.getElementById('download-btn');
+        
+        // Initialize chart
+        function initChart() {
+            const ctx = document.getElementById('performance-chart').getContext('2d');
+            performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Small', 'Medium', 'Large'],
+                    datasets: [
+                        {
+                            label: 'WebAssembly (ms)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgb(54, 162, 235)',
+                            borderWidth: 1,
+                            data: []
+                        },
+                        {
+                            label: 'JavaScript (ms)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            borderWidth: 1,
+                            data: []
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Execution Time (ms)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Input Size'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Add result to table
+        function addResultToTable(result) {
+            const row = document.createElement('tr');
+            
+            const wasmTime = result.wasmStats.mean.toFixed(2);
+            const jsTime = result.jsStats.mean.toFixed(2);
+            const speedup = result.speedup.toFixed(2);
+            
+            row.innerHTML = `
+                <td>${result.algorithm}</td>
+                <td>${result.size}</td>
+                <td>${wasmTime}</td>
+                <td>${jsTime}</td>
+                <td class="speedup ${speedup > 1 ? 'positive-speedup' : 'negative-speedup'}">${speedup}x</td>
+                <td>${(result.wasmMemoryStats.mean / (1024 * 1024)).toFixed(2)}</td>
+                <td>${(result.jsMemoryStats.mean / (1024 * 1024)).toFixed(2)}</td>
+                <td>${result.validationResults.success ? '✓' : '✗'}</td>
+            `;
+            
+            resultsBody.appendChild(row);
+        }
+        
+        // Update chart with results
+        function updateChart() {
+            // Group results by size
+            const smallResults = benchmarkResults.filter(r => r.size === 'small');
+            const mediumResults = benchmarkResults.filter(r => r.size === 'medium');
+            const largeResults = benchmarkResults.filter(r => r.size === 'large');
+            
+            // Update chart data
+            performanceChart.data.datasets[0].data = [
+                smallResults.length > 0 ? smallResults[0].wasmStats.mean : 0,
+                mediumResults.length > 0 ? mediumResults[0].wasmStats.mean : 0,
+                largeResults.length > 0 ? largeResults[0].wasmStats.mean : 0
+            ];
+            
+            performanceChart.data.datasets[1].data = [
+                smallResults.length > 0 ? smallResults[0].jsStats.mean : 0,
+                mediumResults.length > 0 ? mediumResults[0].jsStats.mean : 0,
+                largeResults.length > 0 ? largeResults[0].jsStats.mean : 0
+            ];
+            
+            performanceChart.update();
+        }
+        
+        // Download results as JSON
+        function downloadResults() {
+            const dataStr = JSON.stringify(benchmarkResults, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportFileDefaultName = `benchmark-results-${new Date().toISOString()}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            
+            // Event listeners
+            runBtn.addEventListener('click', async () => {
+                const algorithm = algorithmSelect.value;
+                const size = sizeSelect.value;
+                const iterations = parseInt(iterationsInput.value);
+                
+                // Reset UI
+                resultsBody.innerHTML = '';
+                benchmarkResults = [];
+                testProgress.value = 0;
+                statusText.textContent = 'Running tests...';
+                downloadBtn.disabled = true;
+                
+                try {
+                    if (!window.testRunner) {
+                        throw new Error('Test runner not initialized');
+                    }
+                    
+                    // Run benchmark
+                    const results = await window.testRunner.runBenchmark(algorithm, size, iterations);
+                    benchmarkResults = results;
+                    
+                    // Update UI
+                    results.forEach(addResultToTable);
+                    updateChart();
+                    downloadBtn.disabled = false;
+                    statusText.textContent = 'Tests completed successfully.';
+                } catch (error) {
+                    console.error('Benchmark error:', error);
+                    statusText.textContent = `Error: ${error.message}`;
+                }
+            });
+            
+            downloadBtn.addEventListener('click', downloadResults);
+        });
+
+        // Initialize memory chart
+        const memoryCtx = document.getElementById('memory-chart').getContext('2d');
+        let memoryChart = new Chart(memoryCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Small', 'Medium', 'Large'],
+                datasets: [
+                    {
+                        label: 'WebAssembly Memory (MB)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        borderWidth: 1,
+                        data: []
+                    },
+                    {
+                        label: 'JavaScript Memory (MB)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 1,
+                        data: []
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Memory Usage (MB)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Input Size'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Update memory chart with results
+        function updateMemoryChart() {
+            // Group results by size
+            const smallResults = benchmarkResults.filter(r => r.size === 'small');
+            const mediumResults = benchmarkResults.filter(r => r.size === 'medium');
+            const largeResults = benchmarkResults.filter(r => r.size === 'large');
+            
+            // Update chart data
+            memoryChart.data.datasets[0].data = [
+                smallResults.length > 0 ? smallResults[0].memoryDetails.wasm.heapUsed.mean : 0,
+                mediumResults.length > 0 ? mediumResults[0].memoryDetails.wasm.heapUsed.mean : 0,
+                largeResults.length > 0 ? largeResults[0].memoryDetails.wasm.heapUsed.mean : 0
+            ];
+            
+            memoryChart.data.datasets[1].data = [
+                smallResults.length > 0 ? smallResults[0].memoryDetails.js.heapUsed.mean : 0,
+                mediumResults.length > 0 ? mediumResults[0].memoryDetails.js.heapUsed.mean : 0,
+                largeResults.length > 0 ? largeResults[0].memoryDetails.js.heapUsed.mean : 0
+            ];
+            
+            memoryChart.update();
+        }
+
+        // Update both charts when results change
+        function updateCharts() {
+            updateChart();
+            updateMemoryChart();
+        }
+    </script>
+</body>
+</html> 

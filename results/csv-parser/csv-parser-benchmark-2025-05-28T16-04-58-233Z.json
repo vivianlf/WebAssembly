@@ -1,0 +1,436 @@
+{
+  "timestamp": "2025-05-28T16:04:58.233Z",
+  "algorithm": "CSV Parser",
+  "environment": {
+    "platform": "Node.js",
+    "specs": {
+      "version": "v20.19.0",
+      "platform": "win32",
+      "arch": "x64",
+      "cpus": [
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 9258671,
+            "nice": 0,
+            "sys": 6228234,
+            "idle": 32721343,
+            "irq": 1536046
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 8097421,
+            "nice": 0,
+            "sys": 3619937,
+            "idle": 36490656,
+            "irq": 353500
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 10803562,
+            "nice": 0,
+            "sys": 4715437,
+            "idle": 32689015,
+            "irq": 114062
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 9691031,
+            "nice": 0,
+            "sys": 2457031,
+            "idle": 36059953,
+            "irq": 50390
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 9867562,
+            "nice": 0,
+            "sys": 4085515,
+            "idle": 34254937,
+            "irq": 64796
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 9249484,
+            "nice": 0,
+            "sys": 2876421,
+            "idle": 36082109,
+            "irq": 52062
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 10066593,
+            "nice": 0,
+            "sys": 3439531,
+            "idle": 34701875,
+            "irq": 58812
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 12153843,
+            "nice": 0,
+            "sys": 3304781,
+            "idle": 32749375,
+            "irq": 46796
+          }
+        }
+      ],
+      "totalMemory": 34239422464,
+      "freeMemory": 17805811712
+    }
+  },
+  "results": [
+    {
+      "algorithm": "CSV Parser",
+      "type": "string",
+      "size": "small",
+      "wasmTimes": [
+        96.24910000000091,
+        71.15320000000065
+      ],
+      "jsTimes": [
+        90.37380000000121,
+        37.75089999999909
+      ],
+      "wasmMemory": [
+        {
+          "heapUsed": 3488,
+          "heapTotal": 0,
+          "external": 48234496,
+          "rss": 1937408
+        },
+        {
+          "heapUsed": 241512,
+          "heapTotal": 262144,
+          "external": 0,
+          "rss": -897024
+        }
+      ],
+      "jsMemory": [
+        {
+          "heapUsed": -30703904,
+          "heapTotal": -56119296,
+          "external": -43182261,
+          "rss": -93945856
+        },
+        {
+          "heapUsed": -1700496,
+          "heapTotal": 262144,
+          "external": 0,
+          "rss": 4870144
+        }
+      ],
+      "validationResults": {
+        "success": true,
+        "discrepancies": []
+      },
+      "wasmStats": {
+        "min": 71.15320000000065,
+        "max": 96.24910000000091,
+        "mean": 83.70115000000078,
+        "median": 96.24910000000091,
+        "stdDev": 12.547950000000128,
+        "p95": 96.24910000000091,
+        "p99": 96.24910000000091
+      },
+      "jsStats": {
+        "min": 37.75089999999909,
+        "max": 90.37380000000121,
+        "mean": 64.06235000000015,
+        "median": 90.37380000000121,
+        "stdDev": 26.31145000000106,
+        "p95": 90.37380000000121,
+        "p99": 90.37380000000121
+      },
+      "wasmMemoryStats": {
+        "min": 3488,
+        "max": 241512,
+        "mean": 122500,
+        "median": 241512,
+        "stdDev": 119012,
+        "p95": 241512,
+        "p99": 241512
+      },
+      "jsMemoryStats": {
+        "min": -30703904,
+        "max": -1700496,
+        "mean": -16202200,
+        "median": -1700496,
+        "stdDev": 14501704,
+        "p95": -1700496,
+        "p99": -1700496
+      },
+      "speedup": 0.7653700098505164,
+      "memoryDetails": {
+        "wasm": {
+          "heapUsed": {
+            "min": 0.003326416015625,
+            "max": 0.23032379150390625,
+            "mean": 0.11682510375976562,
+            "median": 0.23032379150390625
+          },
+          "external": {
+            "min": 0,
+            "max": 46,
+            "mean": 23
+          }
+        },
+        "js": {
+          "heapUsed": {
+            "min": -29.281524658203125,
+            "max": -1.6217193603515625,
+            "mean": -15.451622009277344,
+            "median": -1.6217193603515625
+          },
+          "external": {
+            "min": -41.18181324005127,
+            "max": 0,
+            "mean": -20.590906620025635
+          }
+        }
+      }
+    },
+    {
+      "algorithm": "CSV Parser",
+      "type": "string",
+      "size": "medium",
+      "wasmTimes": [
+        329.0771999999997,
+        318.91359999999986
+      ],
+      "jsTimes": [
+        269.0188000000053,
+        256.5847999999969
+      ],
+      "wasmMemory": [
+        {
+          "heapUsed": 3304,
+          "heapTotal": 0,
+          "external": 13041664,
+          "rss": 7098368
+        },
+        {
+          "heapUsed": 2096,
+          "heapTotal": 0,
+          "external": 0,
+          "rss": -299008
+        }
+      ],
+      "jsMemory": [
+        {
+          "heapUsed": 28256464,
+          "heapTotal": 44474368,
+          "external": 0,
+          "rss": 44457984
+        },
+        {
+          "heapUsed": 36290320,
+          "heapTotal": 37502976,
+          "external": 0,
+          "rss": 38105088
+        }
+      ],
+      "validationResults": {
+        "success": true,
+        "discrepancies": []
+      },
+      "wasmStats": {
+        "min": 318.91359999999986,
+        "max": 329.0771999999997,
+        "mean": 323.9953999999998,
+        "median": 329.0771999999997,
+        "stdDev": 5.08179999999993,
+        "p95": 329.0771999999997,
+        "p99": 329.0771999999997
+      },
+      "jsStats": {
+        "min": 256.5847999999969,
+        "max": 269.0188000000053,
+        "mean": 262.8018000000011,
+        "median": 269.0188000000053,
+        "stdDev": 6.217000000004191,
+        "p95": 269.0188000000053,
+        "p99": 269.0188000000053
+      },
+      "wasmMemoryStats": {
+        "min": 2096,
+        "max": 3304,
+        "mean": 2700,
+        "median": 3304,
+        "stdDev": 604,
+        "p95": 3304,
+        "p99": 3304
+      },
+      "jsMemoryStats": {
+        "min": 28256464,
+        "max": 36290320,
+        "mean": 32273392,
+        "median": 36290320,
+        "stdDev": 4016928,
+        "p95": 36290320,
+        "p99": 36290320
+      },
+      "speedup": 0.811128182684079,
+      "memoryDetails": {
+        "wasm": {
+          "heapUsed": {
+            "min": 0.0019989013671875,
+            "max": 0.00315093994140625,
+            "mean": 0.002574920654296875,
+            "median": 0.00315093994140625
+          },
+          "external": {
+            "min": 0,
+            "max": 12.4375,
+            "mean": 6.21875
+          }
+        },
+        "js": {
+          "heapUsed": {
+            "min": 26.947463989257812,
+            "max": 34.60914611816406,
+            "mean": 30.778305053710938,
+            "median": 34.60914611816406
+          },
+          "external": {
+            "min": 0,
+            "max": 0,
+            "mean": 0
+          }
+        }
+      }
+    },
+    {
+      "algorithm": "CSV Parser",
+      "type": "string",
+      "size": "large",
+      "wasmTimes": [
+        1714.017200000002,
+        2084.1579000000056
+      ],
+      "jsTimes": [
+        2333.863900000004,
+        1175.5348999999987
+      ],
+      "wasmMemory": [
+        {
+          "heapUsed": 36144,
+          "heapTotal": 0,
+          "external": 15663104,
+          "rss": 26595328
+        },
+        {
+          "heapUsed": 1704,
+          "heapTotal": 0,
+          "external": 0,
+          "rss": 0
+        }
+      ],
+      "jsMemory": [
+        {
+          "heapUsed": -9606544,
+          "heapTotal": -9605120,
+          "external": 0,
+          "rss": -8712192
+        },
+        {
+          "heapUsed": 127230752,
+          "heapTotal": 127590400,
+          "external": 0,
+          "rss": 127696896
+        }
+      ],
+      "validationResults": {
+        "success": true,
+        "discrepancies": []
+      },
+      "wasmStats": {
+        "min": 1714.017200000002,
+        "max": 2084.1579000000056,
+        "mean": 1899.0875500000038,
+        "median": 2084.1579000000056,
+        "stdDev": 185.07035000000178,
+        "p95": 2084.1579000000056,
+        "p99": 2084.1579000000056
+      },
+      "jsStats": {
+        "min": 1175.5348999999987,
+        "max": 2333.863900000004,
+        "mean": 1754.6994000000013,
+        "median": 2333.863900000004,
+        "stdDev": 579.1645000000026,
+        "p95": 2333.863900000004,
+        "p99": 2333.863900000004
+      },
+      "wasmMemoryStats": {
+        "min": 1704,
+        "max": 36144,
+        "mean": 18924,
+        "median": 36144,
+        "stdDev": 17220,
+        "p95": 36144,
+        "p99": 36144
+      },
+      "jsMemoryStats": {
+        "min": -9606544,
+        "max": 127230752,
+        "mean": 58812104,
+        "median": 127230752,
+        "stdDev": 68418648,
+        "p95": 127230752,
+        "p99": 127230752
+      },
+      "speedup": 0.9239697243025988,
+      "memoryDetails": {
+        "wasm": {
+          "heapUsed": {
+            "min": 0.00162506103515625,
+            "max": 0.0344696044921875,
+            "mean": 0.018047332763671875,
+            "median": 0.0344696044921875
+          },
+          "external": {
+            "min": 0,
+            "max": 14.9375,
+            "mean": 7.46875
+          }
+        },
+        "js": {
+          "heapUsed": {
+            "min": -9.161514282226562,
+            "max": 121.33670043945312,
+            "mean": 56.08759307861328,
+            "median": 121.33670043945312
+          },
+          "external": {
+            "min": 0,
+            "max": 0,
+            "mean": 0
+          }
+        }
+      }
+    }
+  ]
+}

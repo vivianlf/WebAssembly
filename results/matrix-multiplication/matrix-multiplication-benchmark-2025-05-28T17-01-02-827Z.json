@@ -1,0 +1,202 @@
+{
+  "timestamp": "2025-05-28T17:01:02.827Z",
+  "algorithm": "Matrix Multiplication",
+  "environment": {
+    "platform": "Node.js",
+    "specs": {
+      "version": "v20.19.0",
+      "platform": "win32",
+      "arch": "x64",
+      "cpus": [
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 9789859,
+            "nice": 0,
+            "sys": 6766484,
+            "idle": 35016500,
+            "irq": 1656078
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 8456750,
+            "nice": 0,
+            "sys": 3907656,
+            "idle": 39208203,
+            "irq": 384578
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 11467859,
+            "nice": 0,
+            "sys": 5122265,
+            "idle": 34982484,
+            "irq": 122015
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 10124921,
+            "nice": 0,
+            "sys": 2632046,
+            "idle": 38815640,
+            "irq": 54218
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 10398421,
+            "nice": 0,
+            "sys": 4418609,
+            "idle": 36755578,
+            "irq": 69781
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 9658687,
+            "nice": 0,
+            "sys": 3078203,
+            "idle": 38835718,
+            "irq": 55625
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 10556500,
+            "nice": 0,
+            "sys": 3715890,
+            "idle": 37300203,
+            "irq": 63906
+          }
+        },
+        {
+          "model": "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz",
+          "speed": 2808,
+          "times": {
+            "user": 12847734,
+            "nice": 0,
+            "sys": 3544734,
+            "idle": 35180125,
+            "irq": 49937
+          }
+        }
+      ],
+      "totalMemory": 34239422464,
+      "freeMemory": 18731388928
+    }
+  },
+  "results": [
+    {
+      "algorithm": "Matrix Multiplication",
+      "type": "math",
+      "size": "small",
+      "wasmTimes": [
+        1.5691999999999098
+      ],
+      "jsTimes": [
+        6.740099999999984
+      ],
+      "wasmMemory": [
+        {
+          "heapUsed": 2960,
+          "heapTotal": 0,
+          "external": -8192,
+          "rss": -4096
+        }
+      ],
+      "jsMemory": [
+        {
+          "heapUsed": 318296,
+          "heapTotal": 262144,
+          "external": -8230,
+          "rss": 1662976
+        }
+      ],
+      "validationResults": {
+        "success": false,
+        "discrepancies": []
+      },
+      "wasmStats": {
+        "min": 1.5691999999999098,
+        "max": 1.5691999999999098,
+        "mean": 1.5691999999999098,
+        "median": 1.5691999999999098,
+        "stdDev": 0,
+        "p95": 1.5691999999999098,
+        "p99": 1.5691999999999098
+      },
+      "jsStats": {
+        "min": 6.740099999999984,
+        "max": 6.740099999999984,
+        "mean": 6.740099999999984,
+        "median": 6.740099999999984,
+        "stdDev": 0,
+        "p95": 6.740099999999984,
+        "p99": 6.740099999999984
+      },
+      "wasmMemoryStats": {
+        "min": 2960,
+        "max": 2960,
+        "mean": 2960,
+        "median": 2960,
+        "stdDev": 0,
+        "p95": 2960,
+        "p99": 2960
+      },
+      "jsMemoryStats": {
+        "min": 318296,
+        "max": 318296,
+        "mean": 318296,
+        "median": 318296,
+        "stdDev": 0,
+        "p95": 318296,
+        "p99": 318296
+      },
+      "speedup": 4.295245985215633,
+      "memoryDetails": {
+        "wasm": {
+          "heapUsed": {
+            "min": 0.0028228759765625,
+            "max": 0.0028228759765625,
+            "mean": 0.0028228759765625,
+            "median": 0.0028228759765625
+          },
+          "external": {
+            "min": -0.0078125,
+            "max": -0.0078125,
+            "mean": -0.0078125
+          }
+        },
+        "js": {
+          "heapUsed": {
+            "min": 0.30355072021484375,
+            "max": 0.30355072021484375,
+            "mean": 0.30355072021484375,
+            "median": 0.30355072021484375
+          },
+          "external": {
+            "min": -0.007848739624023438,
+            "max": -0.007848739624023438,
+            "mean": -0.007848739624023438
+          }
+        }
+      }
+    }
+  ]
+}
